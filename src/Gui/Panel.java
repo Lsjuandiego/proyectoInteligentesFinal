@@ -47,7 +47,7 @@ public class Panel extends javax.swing.JPanel {
         setBackground(Color.WHITE);
     }
 
-    public void createLabelsFromGraph(Graph graph) {
+    public void createLabelsFromGraph() {
         int numRows = graph.getHeight();
         int numCols = graph.getColumnWidth();
 

@@ -88,10 +88,10 @@ public class NewJFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Panel panel = new Panel();
+                panel.setGraph(graph);
                 JFrame frame = new JFrame("Bomberman");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-                panel.createLabelsFromGraph(graph);
+                panel.createLabelsFromGraph();
 
                 /**
                  * Crear el JComboBox con los nombres de los algoritmos
@@ -162,7 +162,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 resetButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        panel.createLabelsFromGraph(graph);
+                        panel.createLabelsFromGraph();
                     }
                 });
 
