@@ -1,4 +1,4 @@
-package proyectointeligentesfinal;
+package logic;
 
 import Gui.Panel;
 import java.awt.Color;

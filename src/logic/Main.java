@@ -1,4 +1,4 @@
-package proyectointeligentesfinal;
+package logic;
 
 import Gui.Panel;
 import java.util.List;
@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 public class Main {
 
     public static void main(String[] args) {
-
+/*
         GraphReader reader = new GraphReader();
         Graph graph = reader.readGraphFromFile("src/files/camino2.txt");
         graph.newList(graph);
@@ -91,7 +91,7 @@ public class Main {
                     System.out.println("\nSelección de algoritmo no permitido.");
             }
         }
-
+*/
     }
 
     private static void printPathAndVisitedNodes(List<Node> path) {

@@ -1,4 +1,4 @@
-package proyectointeligentesfinal;
+package logic;
 
 public enum HeuristicType {
     MANHATTAN,

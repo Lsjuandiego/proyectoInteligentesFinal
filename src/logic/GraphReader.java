@@ -1,4 +1,4 @@
-package proyectointeligentesfinal;
+package logic;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;

@@ -5,7 +5,7 @@
  */
 package Gui;
 
-import proyectointeligentesfinal.Node;
+import logic.Node;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -14,8 +14,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
-import proyectointeligentesfinal.Graph;
-import proyectointeligentesfinal.GraphReader;
+import logic.Graph;
 
 /**
  *
@@ -23,7 +22,6 @@ import proyectointeligentesfinal.GraphReader;
  */
 public class Panel extends javax.swing.JPanel {
 
-    private GraphReader graphReader;
     private JLabel[][] labels;
     private static final String IMAGE_PATH_START = "src/resources/grass.png"; // Ruta de la imagen para el nodo de inicio
     private static final String IMAGE_PATH_FINISH = "src/resources/grass.png";  // Ruta de la imagen para el nodo de final
@@ -44,14 +42,12 @@ public class Panel extends javax.swing.JPanel {
      */
     public Panel() {
         initComponents();
-        graphReader = new GraphReader();
         labels = null;
         setLayout(new GridLayout(0, 1)); // GridLayout con un número variable de filas
         setBackground(Color.WHITE);
     }
 
-    public void createLabelsFromGraph(String filename) {
-        Graph graph = graphReader.readGraphFromFile(filename);
+    public void createLabelsFromGraph(Graph graph) {
         int numRows = graph.getHeight();
         int numCols = graph.getColumnWidth();
 
@@ -65,37 +61,38 @@ public class Panel extends javax.swing.JPanel {
                 JLabel label = new JLabel();
                 label.setOpaque(true);
 
-                   switch (node.getValue()) {
-                case "I":
-                    ImageIcon startIcon = new ImageIcon(IMAGE_PATH_START);
-                    label.setIcon(scaleImage(startIcon));
-                    break;
-                case "F":
-                    ImageIcon finishIcon = new ImageIcon(IMAGE_PATH_FINISH);
-                    label.setIcon(scaleImage(finishIcon));
-                    break;
-                case "C":
-                    ImageIcon openIcon = new ImageIcon(IMAGE_PATH_OPEN);
-                    label.setIcon(scaleImage(openIcon));
-                    break;
-                case "M":
-                    ImageIcon wallIcon = new ImageIcon(IMAGE_PATH_WALL);
-                    label.setIcon(scaleImage(wallIcon));
-                    break;
-                case "R":
-                    ImageIcon rockIcon = new ImageIcon(IMAGE_PATH_ROCK);
-                    label.setIcon(scaleImage(rockIcon));
-                    break;
-                // Agrega más casos para otros tipos de nodos si los tienes
-                default:
-                    label.setIcon(null); // Sin imagen por defecto
-                    break;
-            }
+                switch (node.getValue()) {
+                    case "I":
+                        ImageIcon startIcon = new ImageIcon(IMAGE_PATH_START);
+                        label.setIcon(scaleImage(startIcon));
+                        break;
+                    case "F":
+                        ImageIcon finishIcon = new ImageIcon(IMAGE_PATH_FINISH);
+                        label.setIcon(scaleImage(finishIcon));
+                        break;
+                    case "C":
+                        ImageIcon openIcon = new ImageIcon(IMAGE_PATH_OPEN);
+                        label.setIcon(scaleImage(openIcon));
+                        break;
+                    case "M":
+                        ImageIcon wallIcon = new ImageIcon(IMAGE_PATH_WALL);
+                        label.setIcon(scaleImage(wallIcon));
+                        break;
+                    case "R":
+                        ImageIcon rockIcon = new ImageIcon(IMAGE_PATH_ROCK);
+                        label.setIcon(scaleImage(rockIcon));
+                        break;
+                    default:
+                        label.setIcon(null); // Sin imagen por defecto
+                        break;
+                }
 
                 labels[row][col] = label;
                 add(label);
             }
         }
+        revalidate(); // Vuelve a validar el panel para mostrar los cambios
+        repaint(); // Vuelve a pintar el panel
 
     }
 
@@ -120,6 +117,7 @@ public class Panel extends javax.swing.JPanel {
             }
         });
     }
+
     public void changeNodeImg(int row, int col, ImageIcon image) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
