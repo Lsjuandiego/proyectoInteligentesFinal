@@ -6,18 +6,10 @@
 package Gui;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import logic.Graph;
 import logic.GraphReader;
-import logic.GraphSearch;
-import logic.HeuristicType;
 
 /**
  *
@@ -82,94 +74,20 @@ public class NewJFrame extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         GraphReader reader = new GraphReader();
-        Graph graph = reader.readGraphFromFile("src/files/camino.txt");
+        Graph graph = reader.readGraphFromFile("src/files/camino2.txt");
         graph.newList(graph);
 
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 Panel panel = new Panel();
                 panel.setGraph(graph);
                 JFrame frame = new JFrame("Bomberman");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 panel.createLabelsFromGraph();
-
-                /**
-                 * Crear el JComboBox con los nombres de los algoritmos
-                 */
-                String[] algorithmNames = {
-                    "UCS",
-                    "DFS",
-                    "BFS",
-                    "A estrella M",
-                    "A estrella E",
-                    "Beam M",
-                    "Beam E",
-                    "Hill M",
-                    "Hill E"
-                };
-                JComboBox<String> algorithmComboBox = new JComboBox<>(algorithmNames);
-                algorithmComboBox.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        String selectedAlgorithm = (String) algorithmComboBox.getSelectedItem();
-                        Thread searchThread = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                GraphSearch graphSearch = new GraphSearch(panel);
-                                try {
-                                    switch (selectedAlgorithm) {
-                                        case "UCS":
-                                            graphSearch.ucs(graph, panel);
-                                            break;
-                                        case "DFS":
-                                            graphSearch.search(graph, false, panel);
-                                            break;
-                                        case "BFS":
-                                            graphSearch.search(graph, true, panel);
-                                            break;
-                                        case "A estrella M":
-                                            graphSearch.aStar(graph, HeuristicType.MANHATTAN, panel);
-                                            break;
-                                        case "A estrella E":
-                                            graphSearch.aStar(graph, HeuristicType.EUCLIDEAN, panel);
-                                            break;
-                                        case "Beam M":
-                                            graphSearch.beamSearch(graph, 2, HeuristicType.MANHATTAN, panel);
-                                            break;
-                                        case "Beam E":
-                                            graphSearch.beamSearch(graph, 2, HeuristicType.EUCLIDEAN, panel);
-                                            break;
-                                        case "Hill M":
-                                            graphSearch.hillClimbing(graph, HeuristicType.MANHATTAN, panel);
-                                            break;
-                                        case "Hill E":
-                                            graphSearch.hillClimbing(graph, HeuristicType.EUCLIDEAN, panel);
-                                            break;
-                                    }
-                                } catch (InterruptedException ex) {
-                                    Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            }
-                        });
-                        searchThread.start();
-                    }
-                });
-
-                /**
-                 * Botón para reiniciar el panel
-                 */
-                JButton resetButton = new JButton("Reiniciar");
-                resetButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        panel.createLabelsFromGraph();
-                    }
-                });
-
                 JPanel buttonPanel = new JPanel();
-                buttonPanel.add(resetButton);
-                buttonPanel.add(algorithmComboBox);
-
+                panel.addAlgorithmComboBox(buttonPanel);
+                panel.addResetButton(buttonPanel);
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(buttonPanel, BorderLayout.NORTH);
                 frame.getContentPane().add(panel, BorderLayout.CENTER);

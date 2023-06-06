@@ -7,14 +7,19 @@ package Gui;
 
 import logic.Node;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import logic.Graph;
+import logic.GraphSearch;
+import logic.HeuristicType;
 
 /**
  *
@@ -31,7 +36,7 @@ public class Panel extends javax.swing.JPanel {
     private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ruta de la imagen para el nodo de roca
     private static final int IMAGE_SIZE = 50; // Tamaño deseado de las imágenes (en píxeles)
     private Graph graph;
-// Agrega más rutas de imágenes para otros tipos de nodos si los tienes
+
 
     public void setGraph(Graph graph) {
         this.graph = graph;
@@ -128,10 +133,6 @@ public class Panel extends javax.swing.JPanel {
             }
         });
     }
-
-    /**
-     * Funciones para pintar las busquedas
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -149,6 +150,78 @@ public class Panel extends javax.swing.JPanel {
             .addGap(0, 152, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+    
+    /**
+     * combobox de botones
+     * @param mainPanel 
+     */
+    public void addAlgorithmComboBox(JPanel mainPanel) {
+        String[] algorithmNames = {
+            "UCS",
+            "DFS",
+            "BFS",
+            "A estrella M",
+            "A estrella E",
+            "Beam M",
+            "Beam E",
+            "Hill M",
+            "Hill E"
+        };
+        JComboBox<String> algorithmComboBox = new JComboBox<>(algorithmNames);
+        algorithmComboBox.addActionListener((ActionEvent e) -> {
+            String selectedAlgorithm = (String) algorithmComboBox.getSelectedItem();
+            Thread searchThread;
+            searchThread = new Thread(() -> {
+                GraphSearch graphSearch = new GraphSearch(Panel.this);
+                try {
+                    switch (selectedAlgorithm) {
+                        case "UCS":
+                            GraphSearch.ucs(graph, Panel.this);
+                            break;
+                        case "DFS":
+                            GraphSearch.search(graph, false, Panel.this);
+                            break;
+                        case "BFS":
+                            GraphSearch.search(graph, true, Panel.this);
+                            break;
+                        case "A estrella M":
+                            GraphSearch.aStar(graph, HeuristicType.MANHATTAN, Panel.this);
+                            break;
+                        case "A estrella E":
+                            GraphSearch.aStar(graph, HeuristicType.EUCLIDEAN, Panel.this);
+                            break;
+                        case "Beam M":
+                            GraphSearch.beamSearch(graph, 2, HeuristicType.MANHATTAN, Panel.this);
+                            break;
+                        case "Beam E":
+                            GraphSearch.beamSearch(graph, 2, HeuristicType.EUCLIDEAN, Panel.this);
+                            break;
+                        case "Hill M":
+                            GraphSearch.hillClimbing(graph, HeuristicType.MANHATTAN, Panel.this);
+                            break;
+                        case "Hill E":
+                            GraphSearch.hillClimbing(graph, HeuristicType.EUCLIDEAN, Panel.this);
+                            break;
+                    }
+                } catch (InterruptedException ex) {
+                }
+            });
+            searchThread.start();
+        });
+        mainPanel.add(algorithmComboBox);
+    }
+    
+    /**
+     * Botón para limpar el tablero
+     * @param mainPanel 
+     */
+    public void addResetButton(JPanel mainPanel) {
+        JButton resetButton = new JButton("Limpiar");
+        resetButton.addActionListener((ActionEvent e) -> {
+          
+        });
+        mainPanel.add(resetButton);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
