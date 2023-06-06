@@ -127,6 +127,8 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
      * @throws java.lang.InterruptedException
      */
     public static List<Node> ucs(Graph graph, Panel panel) throws InterruptedException {
+                ImageIcon startIcon = new ImageIcon(IMAGE_PATH_ROBOT);
+        ImageIcon open = new ImageIcon(IMAGE_PATH_OPEN);
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(Node::getCost));
         Map<Node, Node> parentMap = new HashMap<>();
         Map<Node, Integer> costMap = new HashMap<>();
@@ -150,9 +152,10 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
                 // Nodo objetivo encontrado, retorna el camino
                 List<Node> path = getPath(start, current, parentMap);
                 for (Node node : path) {
-                    panel.changeNodeColor(node.getRow(), node.getCol(), Color.BLUE);
+                    panel.changeNodeImg(node.getRow(), node.getCol(), startIcon);
                     panel.repaint();
                     Thread.sleep(500); // Pausa de 500 milisegundos
+                    panel.changeNodeImg(node.getRow(), node.getCol(), open);
                 }
                 return path;
             }
@@ -181,6 +184,8 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
      * @return
      */
     public static List<Node> aStar(Graph graph, HeuristicType heuristic, Panel panel) throws InterruptedException {
+                ImageIcon startIcon = new ImageIcon(IMAGE_PATH_ROBOT);
+        ImageIcon open = new ImageIcon(IMAGE_PATH_OPEN);
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(Node::getCost));
         Map<Node, Node> parentMap = new HashMap<>();
         Map<Node, Integer> costMap = new HashMap<>();
@@ -205,9 +210,10 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
                 // Nodo objetivo encontrado, retorna el camino
                 List<Node> path = getPath(start, current, parentMap);
                 for (Node node : path) {
-                    panel.changeNodeColor(node.getRow(), node.getCol(), Color.BLUE);
+                    panel.changeNodeImg(node.getRow(), node.getCol(), startIcon);
                     panel.repaint();
                     Thread.sleep(500); // Pausa de 500 milisegundos
+                    panel.changeNodeImg(node.getRow(), node.getCol(), open);
                 }
                 return path;
             }
@@ -240,6 +246,8 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
     }
 
     public static List<Node> hillClimbing(Graph graph, HeuristicType heuristic, Panel panel) throws InterruptedException {
+                ImageIcon startIcon = new ImageIcon(IMAGE_PATH_ROBOT);
+        ImageIcon open = new ImageIcon(IMAGE_PATH_OPEN);
         boolean diagonal = heuristic == HeuristicType.EUCLIDEAN;
         List<Node> visitedNodes = new ArrayList<>();
 
@@ -285,15 +293,18 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
 
         // Pintar el camino encontrado de azul
         for (Node node : visitedNodes) {
-            panel.changeNodeColor(node.getRow(), node.getCol(), Color.BLUE);
+            panel.changeNodeImg(node.getRow(), node.getCol(), startIcon);
             panel.repaint();
             Thread.sleep(500); // Pausa de 500 milisegundos
+            panel.changeNodeImg(node.getRow(), node.getCol(), open);
         }
 
         return visitedNodes;
     }
 
     public static List<Node> beamSearch(Graph graph, int k, HeuristicType heuristic, Panel panel) throws InterruptedException {
+                ImageIcon startIcon = new ImageIcon(IMAGE_PATH_ROBOT);
+        ImageIcon open = new ImageIcon(IMAGE_PATH_OPEN);
         boolean diagonal = heuristic == HeuristicType.EUCLIDEAN;
         List<Node> visitedNodes = new ArrayList<>();
 
@@ -350,9 +361,10 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
         visitedNodes.add(current);
         // Pintar el camino encontrado de azul
         for (Node node : visitedNodes) {
-            panel.changeNodeColor(node.getRow(), node.getCol(), Color.BLUE);
+            panel.changeNodeImg(node.getRow(), node.getCol(), startIcon);
             panel.repaint();
             Thread.sleep(500); // Pausa de 500 milisegundos
+            panel.changeNodeImg(node.getRow(), node.getCol(), open);
         }
         return visitedNodes;
     }

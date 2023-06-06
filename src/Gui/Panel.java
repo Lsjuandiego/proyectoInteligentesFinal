@@ -46,8 +46,6 @@ public class Panel extends javax.swing.JPanel {
         initComponents();
         graphReader = new GraphReader();
         labels = null;
-
-        setPreferredSize(new Dimension(1080, 720)); // Establecer la dimensión preferida del panel
         setLayout(new GridLayout(0, 1)); // GridLayout con un número variable de filas
         setBackground(Color.WHITE);
     }
