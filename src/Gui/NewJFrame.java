@@ -74,7 +74,7 @@ public class NewJFrame extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         GraphReader reader = new GraphReader();
-        Graph graph = reader.readGraphFromFile("src/files/camino2.txt");
+        Graph graph = reader.readGraphFromFile("src/files/CaminoSustentación.txt");
         graph.newList(graph);
 
         java.awt.EventQueue.invokeLater(new Runnable() {
