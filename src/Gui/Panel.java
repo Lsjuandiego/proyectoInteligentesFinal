@@ -37,7 +37,6 @@ public class Panel extends javax.swing.JPanel {
     private static final int IMAGE_SIZE = 100; // Tamaño deseado de las imágenes (en píxeles)
     private Graph graph;
 
-
     public void setGraph(Graph graph) {
         this.graph = graph;
     }
@@ -133,6 +132,7 @@ public class Panel extends javax.swing.JPanel {
             }
         });
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -150,10 +150,11 @@ public class Panel extends javax.swing.JPanel {
             .addGap(0, 152, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-    
+
     /**
      * combobox de botones
-     * @param mainPanel 
+     *
+     * @param mainPanel
      */
     public void addAlgorithmComboBox(JPanel mainPanel) {
         String[] algorithmNames = {
@@ -210,15 +211,23 @@ public class Panel extends javax.swing.JPanel {
         });
         mainPanel.add(algorithmComboBox);
     }
-    
+
+    public void clearPanel() {
+        removeAll(); // Elimina todos los componentes del panel
+        revalidate(); // Vuelve a validar el panel
+        repaint(); // Vuelve a pintar el panel
+    }
+
     /**
      * Botón para limpar el tablero
-     * @param mainPanel 
+     *
+     * @param mainPanel
      */
     public void addResetButton(JPanel mainPanel) {
         JButton resetButton = new JButton("Limpiar");
         resetButton.addActionListener((ActionEvent e) -> {
-          
+            clearPanel();
+            createLabelsFromGraph();
         });
         mainPanel.add(resetButton);
     }
