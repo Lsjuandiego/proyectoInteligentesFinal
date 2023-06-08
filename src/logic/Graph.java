@@ -106,7 +106,7 @@ public class Graph {
     public Node getStartNode() {
         for (Node node : nodes) {
             if (node.isStart()) {
-                startNode = node;
+                setStart(node);
             }
         }
         return startNode;
@@ -119,7 +119,7 @@ public class Graph {
     public Node getGoalNode() {
         for (Node node : nodes) {
             if (node.isGoal()) {
-                goalNode = node;
+                setGoal(node);
             }
         }
         return goalNode;
@@ -132,6 +132,47 @@ public class Graph {
             }
         }
         return null;
+    }
+
+    /**
+     * @param startNode the startNode to set
+     */
+    public void setStartNode(int f, int c) {
+        for (Node node : nodes) {
+            if(node.getValue()=="I"){
+                node.setValue("C");
+            }
+        }
+        for (Node node : nodes) {
+            if(node.getCol()==c && node.getRow()==f){
+                this.startNode = node;
+                node.setValue("I");
+            }
+        }
+
+    }
+
+    /**
+     * @param goalNode the goalNode to set
+     */
+    public void setStart(Node node){
+        this.startNode=node;
+    }
+    public void setGoal(Node node){
+        this.goalNode=node;
+    }
+    public void setGoalNode(int f, int c) {
+        for (Node node : nodes) {
+            if(node.getValue()=="F"){
+                node.setValue("C");
+            }
+        }
+        for (Node node : nodes) {
+            if(node.getCol()==c && node.getRow()==f){
+                this.goalNode = node;
+                node.setValue("F");
+            }
+        }
     }
 
 }

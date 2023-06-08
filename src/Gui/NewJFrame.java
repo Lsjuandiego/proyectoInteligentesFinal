@@ -132,6 +132,17 @@ public class NewJFrame extends javax.swing.JFrame {
             // Aquí puedes obtener los valores de inicio y meta
             String inicio = tfInicio.getText();
             String meta = tfMeta.getText();
+            // Obtener los valores de fila y columna del inicio
+            String[] inicioArray = inicio.split(",");
+            int filaInicio = Integer.parseInt(inicioArray[0]);
+            int columnaInicio = Integer.parseInt(inicioArray[1]);
+
+            // Obtener los valores de fila y columna de la meta
+            String[] metaArray = meta.split(",");
+            int filaMeta = Integer.parseInt(metaArray[0]);
+            int columnaMeta = Integer.parseInt(metaArray[1]);
+            graph.setGoalNode(filaMeta, columnaMeta);
+            graph.setStartNode(filaInicio, columnaInicio);
 
             // Realizar las operaciones necesarias con los valores obtenidos
             // Cerrar el modal
@@ -177,6 +188,7 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
     }
+
     private void setupGraph() {
         String filePath = "src/files/CaminoSustentación.txt";
         graph = reader.readGraphFromFile(filePath);
