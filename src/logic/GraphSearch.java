@@ -48,14 +48,14 @@ public class GraphSearch {
 
             if (node.equals(goal)) {
                 List<Node> path = getPath(start, node, parents);
-                int visitOrder = path.size(); // Variable local para el orden de visita
+                int visitOrder = 1; // Variable local para el orden de visita
                 for (Node pathNode : path) {
                     panel.changeNodeImg(pathNode.getRow(), pathNode.getCol(), startIcon);
                     panel.repaint();
                     Thread.sleep(500); // Pausa de 500 milisegundos
                     panel.changeNodeImg(pathNode.getRow(), pathNode.getCol(), open);
-                    //panel.changeNodeText(pathNode.getRow(), pathNode.getCol(), String.valueOf(visitOrder));
-                    visitOrder--;
+                    panel.changeNodeText(pathNode.getRow(), pathNode.getCol(), String.valueOf(visitOrder));
+                    visitOrder++;
                 }
                 return path;
 
@@ -65,7 +65,7 @@ public class GraphSearch {
                 visited.add(node);
                 System.out.print(node.getName() + " , ");
                 panel.changeNodeColor(node.getRow(), node.getCol(), Color.YELLOW);
-                panel.changeNodeText(node.getRow(), node.getCol(), String.valueOf(orden));
+                //panel.changeNodeText(node.getRow(), node.getCol(), String.valueOf(orden));
                 Thread.sleep(100);
                 orden--;
                 panel.repaint();
@@ -80,7 +80,7 @@ public class GraphSearch {
                 }
             }
         }
-        panel.changeNodeText(graph.getGoalNode().getRow(), graph.getGoalNode().getCol(), String.valueOf(orden));
+        //panel.changeNodeText(graph.getGoalNode().getRow(), graph.getGoalNode().getCol(), String.valueOf(orden));
         panel.repaint();
         return null;
     }
@@ -162,7 +162,7 @@ public class GraphSearch {
 
             System.out.print(current.getName() + " , ");
             panel.changeNodeColor(current.getRow(), current.getCol(), Color.YELLOW);
-            panel.changeNodeText(current.getRow(), current.getCol(), String.valueOf(orden));
+           // panel.changeNodeText(current.getRow(), current.getCol(), String.valueOf(orden));
             Thread.sleep(100);
             orden--;
             panel.repaint();
@@ -171,14 +171,14 @@ public class GraphSearch {
             if (current.equals(goal)) {
                 // Nodo objetivo encontrado, retorna el camino
                 List<Node> path = getPath(start, current, parentMap);
-                int visitOrder = path.size();
+                int visitOrder = 1;
                 for (Node node : path) {
                     panel.changeNodeImg(node.getRow(), node.getCol(), startIcon);
                     panel.repaint();
                     Thread.sleep(500); // Pausa de 500 milisegundos
                     panel.changeNodeImg(node.getRow(), node.getCol(), open);
-                    // panel.changeNodeText(node.getRow(), node.getCol(), String.valueOf(visitOrder));
-                    visitOrder--;
+                    panel.changeNodeText(node.getRow(), node.getCol(), String.valueOf(visitOrder));
+                    visitOrder++;
                 }
                 return path;
             }
@@ -196,7 +196,7 @@ public class GraphSearch {
                 }
             }
         }
-        panel.changeNodeText(graph.getGoalNode().getRow(), graph.getGoalNode().getCol(), String.valueOf(orden));
+        //panel.changeNodeText(graph.getGoalNode().getRow(), graph.getGoalNode().getCol(), String.valueOf(orden));
         panel.repaint();
         return null;
         // No se encontró camino
@@ -229,7 +229,7 @@ public class GraphSearch {
             Node current = queue.poll();
             System.out.print(current.getName() + " , ");
             panel.changeNodeColor(current.getRow(), current.getCol(), Color.YELLOW);
-            panel.changeNodeText(current.getRow(), current.getCol(), String.valueOf(orden));
+            //panel.changeNodeText(current.getRow(), current.getCol(), String.valueOf(orden));
             Thread.sleep(100);
             orden--;
             panel.repaint();
@@ -238,14 +238,14 @@ public class GraphSearch {
             if (current.equals(goal)) {
                 // Nodo objetivo encontrado, retorna el camino
                 List<Node> path = getPath(start, current, parentMap);
-                int visitOrder = path.size();
+                int visitOrder = 1;
                 for (Node node : path) {
                     panel.changeNodeImg(node.getRow(), node.getCol(), startIcon);
                     panel.repaint();
                     Thread.sleep(500); // Pausa de 500 milisegundos
                     panel.changeNodeImg(node.getRow(), node.getCol(), open);
-                    //panel.changeNodeText(node.getRow(), node.getCol(), String.valueOf(visitOrder));
-                    visitOrder--;
+                    panel.changeNodeText(node.getRow(), node.getCol(), String.valueOf(visitOrder));
+                    visitOrder++;
                 }
                 return path;
             }
@@ -290,7 +290,7 @@ int orden = 10;
             visitedNodes.add(current);
             System.out.print(current.getName() + " , ");
             panel.changeNodeColor(current.getRow(), current.getCol(), Color.YELLOW);
-            panel.changeNodeText(current.getRow(), current.getCol(), String.valueOf(orden));
+            //panel.changeNodeText(current.getRow(), current.getCol(), String.valueOf(orden));
             Thread.sleep(100);
             orden--;
             panel.repaint();
@@ -327,14 +327,14 @@ int orden = 10;
         visitedNodes.add(current);
 
         // Pintar el camino encontrado de azul
-        int visitOrder = visitedNodes.size();
+        int visitOrder = 1;
         for (Node node : visitedNodes) {
             panel.changeNodeImg(node.getRow(), node.getCol(), startIcon);
             panel.repaint();
             Thread.sleep(500); // Pausa de 500 milisegundos
             panel.changeNodeImg(node.getRow(), node.getCol(), open);
             panel.changeNodeText(node.getRow(), node.getCol(), String.valueOf(visitOrder));
-            visitOrder--;
+            visitOrder++;
         }
 
         return visitedNodes;
@@ -353,7 +353,7 @@ int orden = 10;
             visitedNodes.add(current);
             System.out.print(current.getName() + " , ");
             panel.changeNodeColor(current.getRow(), current.getCol(), Color.YELLOW);
-            panel.changeNodeText(current.getRow(), current.getCol(), String.valueOf(orden));
+           // panel.changeNodeText(current.getRow(), current.getCol(), String.valueOf(orden));
             Thread.sleep(100);
             orden--;
             panel.repaint();
@@ -401,14 +401,14 @@ int orden = 10;
 
         visitedNodes.add(current);
         // Pintar el camino encontrado de azul
-        int visitOrder = visitedNodes.size();
+        int visitOrder = 1;
         for (Node node : visitedNodes) {
             panel.changeNodeImg(node.getRow(), node.getCol(), startIcon);
             panel.repaint();
             Thread.sleep(500); // Pausa de 500 milisegundos
             panel.changeNodeImg(node.getRow(), node.getCol(), open);
             panel.changeNodeText(node.getRow(), node.getCol(), String.valueOf(visitOrder));
-            visitOrder--;
+            visitOrder++;
         }
         return visitedNodes;
     }
