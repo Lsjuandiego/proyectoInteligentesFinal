@@ -221,7 +221,7 @@ public class GraphSearch {
         queue.add(start);
         parentMap.put(start, null);
         costMap.put(start, 0);
-        int orden = 18;
+        int orden = 21;
 
         boolean diagonal = heuristic == HeuristicType.EUCLIDEAN;
 
@@ -285,11 +285,14 @@ public class GraphSearch {
 
         Node current = graph.getStartNode();
         Node goal = graph.getGoalNode();
-
+int orden = 10;
         while (!current.equals(goal)) {
             visitedNodes.add(current);
             System.out.print(current.getName() + " , ");
             panel.changeNodeColor(current.getRow(), current.getCol(), Color.YELLOW);
+            panel.changeNodeText(current.getRow(), current.getCol(), String.valueOf(orden));
+            Thread.sleep(100);
+            orden--;
             panel.repaint();
             Thread.sleep(500); // Pausa de 500 milisegundos
 
@@ -345,11 +348,14 @@ public class GraphSearch {
 
         Node current = graph.getStartNode();
         Node goal = graph.getGoalNode();
-
+        int orden = 11;
         while (!current.equals(goal)) {
             visitedNodes.add(current);
             System.out.print(current.getName() + " , ");
             panel.changeNodeColor(current.getRow(), current.getCol(), Color.YELLOW);
+            panel.changeNodeText(current.getRow(), current.getCol(), String.valueOf(orden));
+            Thread.sleep(100);
+            orden--;
             panel.repaint();
             Thread.sleep(500); // Pausa de 500 milisegundos
             List<Node> neighbors = current.getNeighbors(heuristic);
