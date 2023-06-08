@@ -28,12 +28,13 @@ import logic.HeuristicType;
 public class Panel extends javax.swing.JPanel {
 
     private JLabel[][] labels;
-    private static final String IMAGE_PATH_START = "src/resources/grass.png"; // Ruta de la imagen para el nodo de inicio
-    private static final String IMAGE_PATH_FINISH = "src/resources/grass.png";  // Ruta de la imagen para el nodo de final
+    
+    private static final String IMAGE_PATH_FINISH = "src/resources/finish.png";  // Ruta de la imagen para el nodo de final
     private static final String IMAGE_PATH_OPEN = "src/resources/grass.png";  // Ruta de la imagen para el nodo libre
     private static final String IMAGE_PATH_WALL = "src/resources/wall.png";  // Ruta de la imagen para el nodo de pared
     private static final String IMAGE_PATH_ROCK = "src/resources/stone.png";  // Ruta de la imagen para el nodo de roca
     private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ruta de la imagen para el nodo de roca
+    private static final String IMAGE_PATH_START = "src/resources/comienzo.png"; // Inicio
     private static final int IMAGE_SIZE = 100; // Tamaño deseado de las imágenes (en píxeles)
     private Graph graph;
 

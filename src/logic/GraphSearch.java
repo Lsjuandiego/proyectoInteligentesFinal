@@ -6,12 +6,20 @@ import java.util.*;
 import javax.swing.ImageIcon;
 
 public class GraphSearch {
-private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ruta de la imagen para el nodo de roca
-   private static final String IMAGE_PATH_OPEN = "src/resources/grass.png";
+
+    private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ruta de la imagen para el nodo de roca
+    private static final String IMAGE_PATH_OPEN = "src/resources/rec.png";
+    private static final String IMAGE_PATH_Lupa = "src/resources/lupa.png";
     private Panel panel;
+    private static ImageIcon startIcon;
+    private static ImageIcon open;
+    private static ImageIcon lupa;
 
     public GraphSearch(Panel panel) {
         this.panel = panel;
+        startIcon = new ImageIcon(IMAGE_PATH_ROBOT);
+        open = new ImageIcon(IMAGE_PATH_OPEN);
+        lupa = new ImageIcon(IMAGE_PATH_Lupa);
     }
 
     /**
@@ -22,8 +30,7 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
      * @return
      */
     public static List<Node> search(Graph graph, boolean useQueue, Panel panel) throws InterruptedException {
-        ImageIcon startIcon = new ImageIcon(IMAGE_PATH_ROBOT);
-        ImageIcon open = new ImageIcon(IMAGE_PATH_OPEN);
+
         Node start = graph.getStartNode();
         Node goal = graph.getGoalNode();
 
@@ -41,10 +48,10 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
                 List<Node> path = getPath(start, node, parents);
                 for (Node pathNode : path) {
                     panel.changeNodeImg(pathNode.getRow(), pathNode.getCol(), startIcon);
-                   
+
                     panel.repaint();
                     Thread.sleep(100); // Pausa de 500 milisegundos
-                     panel.changeNodeImg(pathNode.getRow(), pathNode.getCol(), open);
+                    panel.changeNodeImg(pathNode.getRow(), pathNode.getCol(), open);
                 }
                 return path;
             }
@@ -53,7 +60,7 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
                 visited.add(node);
                 System.out.print(node.getName() + " , ");
 
-                panel.changeNodeColor(node.getRow(), node.getCol(), Color.YELLOW);
+                panel.changeNodeImg(node.getRow(), node.getCol(), lupa);
                 panel.repaint();
                 Thread.sleep(100); // Pausa de 500 milisegundos
 
@@ -127,8 +134,6 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
      * @throws java.lang.InterruptedException
      */
     public static List<Node> ucs(Graph graph, Panel panel) throws InterruptedException {
-                ImageIcon startIcon = new ImageIcon(IMAGE_PATH_ROBOT);
-        ImageIcon open = new ImageIcon(IMAGE_PATH_OPEN);
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(Node::getCost));
         Map<Node, Node> parentMap = new HashMap<>();
         Map<Node, Integer> costMap = new HashMap<>();
@@ -144,7 +149,7 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
             Node current = queue.poll();
 
             System.out.print(current.getName() + " , ");
-            panel.changeNodeColor(current.getRow(), current.getCol(), Color.YELLOW);
+            panel.changeNodeImg(current.getRow(), current.getCol(), lupa);
             panel.repaint();
             Thread.sleep(500); // Pausa de 500 milisegundos
 
@@ -184,8 +189,7 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
      * @return
      */
     public static List<Node> aStar(Graph graph, HeuristicType heuristic, Panel panel) throws InterruptedException {
-                ImageIcon startIcon = new ImageIcon(IMAGE_PATH_ROBOT);
-        ImageIcon open = new ImageIcon(IMAGE_PATH_OPEN);
+       
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(Node::getCost));
         Map<Node, Node> parentMap = new HashMap<>();
         Map<Node, Integer> costMap = new HashMap<>();
@@ -202,7 +206,7 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
         while (!queue.isEmpty()) {
             Node current = queue.poll();
             System.out.print(current.getName() + " , ");
-            panel.changeNodeColor(current.getRow(), current.getCol(), Color.YELLOW);
+           panel.changeNodeImg(current.getRow(), current.getCol(), lupa);
             panel.repaint();
             Thread.sleep(500); // Pausa de 500 milisegundos
             //System.out.println("Visitado: " + current.getName() + " en (" + current.getRow() + ", " + current.getCol() + ")");
@@ -246,7 +250,7 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
     }
 
     public static List<Node> hillClimbing(Graph graph, HeuristicType heuristic, Panel panel) throws InterruptedException {
-                ImageIcon startIcon = new ImageIcon(IMAGE_PATH_ROBOT);
+        ImageIcon startIcon = new ImageIcon(IMAGE_PATH_ROBOT);
         ImageIcon open = new ImageIcon(IMAGE_PATH_OPEN);
         boolean diagonal = heuristic == HeuristicType.EUCLIDEAN;
         List<Node> visitedNodes = new ArrayList<>();
@@ -257,7 +261,7 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
         while (!current.equals(goal)) {
             visitedNodes.add(current);
             System.out.print(current.getName() + " , ");
-            panel.changeNodeColor(current.getRow(), current.getCol(), Color.YELLOW);
+            panel.changeNodeImg(current.getRow(), current.getCol(), lupa);
             panel.repaint();
             Thread.sleep(500); // Pausa de 500 milisegundos
 
@@ -303,7 +307,7 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
     }
 
     public static List<Node> beamSearch(Graph graph, int k, HeuristicType heuristic, Panel panel) throws InterruptedException {
-                ImageIcon startIcon = new ImageIcon(IMAGE_PATH_ROBOT);
+        ImageIcon startIcon = new ImageIcon(IMAGE_PATH_ROBOT);
         ImageIcon open = new ImageIcon(IMAGE_PATH_OPEN);
         boolean diagonal = heuristic == HeuristicType.EUCLIDEAN;
         List<Node> visitedNodes = new ArrayList<>();
@@ -314,7 +318,7 @@ private static final String IMAGE_PATH_ROBOT = "src/resources/robot.png";  // Ru
         while (!current.equals(goal)) {
             visitedNodes.add(current);
             System.out.print(current.getName() + " , ");
-            panel.changeNodeColor(current.getRow(), current.getCol(), Color.YELLOW);
+            panel.changeNodeImg(current.getRow(), current.getCol(), lupa);
             panel.repaint();
             Thread.sleep(500); // Pausa de 500 milisegundos
             List<Node> neighbors = current.getNeighbors(heuristic);
