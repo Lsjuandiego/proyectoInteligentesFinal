@@ -5,8 +5,10 @@
  */
 package Gui;
 
+import java.awt.BorderLayout;
 import logic.Node;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -16,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import logic.Graph;
 import logic.GraphSearch;
@@ -232,7 +235,31 @@ public class Panel extends javax.swing.JPanel {
         });
         mainPanel.add(resetButton);
     }
+    
+    public void changeNodeText(int row, int col, String text) {
+        JLabel label = labels[row][col];
 
+        // Crear un nuevo JPanel con un BorderLayout
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setOpaque(false); // Establecer la opacidad del panel en falso para que no cubra la imagen
+
+        // Crear un JLabel para mostrar el número
+        JLabel numberLabel = new JLabel(text);
+        numberLabel.setFont(numberLabel.getFont().deriveFont(Font.BOLD, 16));
+        numberLabel.setForeground(Color.BLACK);
+        numberLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        numberLabel.setVerticalAlignment(SwingConstants.CENTER);
+
+        // Agregar el JLabel del número al JPanel
+        panel.add(numberLabel, BorderLayout.NORTH);
+
+        // Agregar el JPanel al JLabel
+        label.setLayout(new BorderLayout());
+        label.add(panel, BorderLayout.CENTER);
+
+        revalidate();
+        repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

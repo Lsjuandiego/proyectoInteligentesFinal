@@ -6,8 +6,15 @@
 package Gui;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import logic.Graph;
 import logic.GraphReader;
 
@@ -17,12 +24,16 @@ import logic.GraphReader;
  */
 public class NewJFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form NewJFrame
-     */
-    public NewJFrame() {
+    private GraphReader reader;
+    private Graph graph;
+    private Panel panel;
 
+    public NewJFrame() {
         initComponents();
+        reader = new GraphReader();
+        graph = new Graph();
+        panel = new Panel();
+        panel.setGraph(graph);
     }
 
     /**
@@ -35,6 +46,8 @@ public class NewJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         panel1 = new Gui.Panel();
+        btInicio = new javax.swing.JButton();
+        lbTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,25 +62,88 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGap(0, 383, Short.MAX_VALUE)
         );
 
+        btInicio.setText("Cambiar posición de inicio y meta");
+        btInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInicioActionPerformed(evt);
+            }
+        });
+
+        lbTitulo.setFont(new java.awt.Font("Monospaced", 1, 21)); // NOI18N
+        lbTitulo.setText("Proyecto Bomberman");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addGap(143, 143, 143)
+                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lbTitulo)
+                .addGap(246, 246, 246))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btInicio)
+                .addGap(194, 194, 194))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(141, Short.MAX_VALUE)
-                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(lbTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(btInicio)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInicioActionPerformed
+        // Crear un JDialog como modal
+        JDialog modalDialog = new JDialog(this, "Configuración de inicio y meta", true);
+
+        // Configurar el tamaño y la posición del JDialog
+        modalDialog.setSize(400, 300);
+        modalDialog.setLocationRelativeTo(null);
+
+        // Crear los componentes del panel del modal
+        JLabel labelInicio = new JLabel("Posición de inicio:");
+        JTextField tfInicio = new JTextField();
+        JLabel labelMeta = new JLabel("Posición de meta:");
+        JTextField tfMeta = new JTextField();
+        JButton btnAceptar = new JButton("Aceptar");
+
+        // Crear el panel del modal
+        JPanel modalPanel = new JPanel(new GridLayout(3, 2));
+        modalPanel.add(labelInicio);
+        modalPanel.add(tfInicio);
+        modalPanel.add(labelMeta);
+        modalPanel.add(tfMeta);
+        modalPanel.add(btnAceptar);
+
+        // Configurar el botón Aceptar para cerrar el modal
+        btnAceptar.addActionListener((ActionEvent e) -> {
+            // Aquí puedes obtener los valores de inicio y meta
+            String inicio = tfInicio.getText();
+            String meta = tfMeta.getText();
+
+            // Realizar las operaciones necesarias con los valores obtenidos
+            // Cerrar el modal
+            modalDialog.dispose();
+        });
+
+        // Agregar el panel al JDialog
+        modalDialog.add(modalPanel);
+
+        // Mostrar el modal
+        modalDialog.setVisible(true);
+    }//GEN-LAST:event_btInicioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,7 +156,7 @@ public class NewJFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Panel panel = new Panel();
+                /* Panel panel = new Panel();
                 panel.setGraph(graph);
                 JFrame frame = new JFrame("Bomberman");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,12 +168,41 @@ public class NewJFrame extends javax.swing.JFrame {
                 frame.getContentPane().add(buttonPanel, BorderLayout.NORTH);
                 frame.getContentPane().add(panel, BorderLayout.CENTER);
                 frame.pack();
+                frame.setVisible(true);*/
+                NewJFrame frame = new NewJFrame();
+                frame.setupGraph();
+                frame.setupPanel();
+                frame.setupFrame();
                 frame.setVisible(true);
             }
         });
     }
+    private void setupGraph() {
+        String filePath = "src/files/CaminoSustentación.txt";
+        graph = reader.readGraphFromFile(filePath);
+        graph.newList(graph);
+    }
+
+    private void setupPanel() {
+        panel.setGraph(graph);
+        panel.createLabelsFromGraph();
+        JPanel buttonPanel = new JPanel();
+        panel.addAlgorithmComboBox(buttonPanel);
+        panel.addResetButton(buttonPanel);
+        panel1.setLayout(new BorderLayout());
+        panel1.add(buttonPanel, BorderLayout.NORTH);
+        panel1.add(panel, BorderLayout.CENTER);
+    }
+
+    private void setupFrame() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Bomberman");
+        pack();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btInicio;
+    private javax.swing.JLabel lbTitulo;
     private Gui.Panel panel1;
     // End of variables declaration//GEN-END:variables
 }
